@@ -1,6 +1,10 @@
 # hello-world
 Just learn git again
 
-learn how to use github!!!!! 
+<<<<<<< HEAD
+learn how to use github for git merge!!!!! 
+=======
+learn how to use github for git merge  
+>>>>>>> featrue1
 
 
