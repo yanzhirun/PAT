@@ -17,9 +17,20 @@ void main()
 			exit(0);
 		}
 	}
+
 	for(i = 0; i < N; i++)
 	{
-		a[i][j] = i * M + j + 1;
-		printf("a[%d][%d] =");
+		for(j = 0; j < M; j++)
+		{
+			a[i][j] = i * M + j + 1;
+			printf("a[%d][%d] = %d\t",i,j,a[i][j]);
+		}
+		printf("\n");
 	}
+
+	for(i = 0; i < N; i++)
+		free(a[i]);
+
+
+	return ;
 }
