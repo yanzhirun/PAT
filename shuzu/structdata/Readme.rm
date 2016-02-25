@@ -1,0 +1,2 @@
+编译方法 gcc <file> -lcurses
+
