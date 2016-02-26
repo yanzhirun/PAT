@@ -19,7 +19,7 @@ struct Stu_head
 struct Stu_head * head_create()
 {
 	struct Stu_head * single_link;
-	if((single_link = (struct * Stu_head *)malloc(sizeof(struct Stu_head))) == NULL)
+	if((single_link = (struct Stu_head *)malloc(sizeof(struct Stu_head))) == NULL)
 	{
 		printf("failure!");
 		exit(0);
@@ -118,7 +118,7 @@ void single_link_destory(struct Stu_head * single_link)
 int main()
 {
 	int i;
-	struct Stu_head * single_head = head_creat();
+	struct Stu_head * single_head = head_create();
 	for(i = 0; i < N; i++)
 		node_append(single_head);
 	node_print(single_head);
