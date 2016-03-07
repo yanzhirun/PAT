@@ -1,14 +1,14 @@
 KERNELDIR = /usr/src/linux-$(shell uname -r)
 PWD := $(shell pwd)
 CC    = $(CROSS_COMPILE)gcc
-MODULE_NAME := qtestpwd
+MODULE_NAME := lettest11
 RESMAN_CORE_OBJS := test.o
-RESMAN_GLUE_OBJS := crypto_hash.o
-#$(MODULE_NAME)-y := crypto_hash.o
+RESMAN_GLUE_OBJS := key_store.o
 $(MODULE_NAME)-objs := $(RESMAN_GLUE_OBJS) $(RESMAN_CORE_OBJS)
-obj-m := qtestpwd.o
+obj-m := lettest11.o
 moudles:
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules
 
 clean:
 	rm -rf *.o *~ core .depend .*.cmd *.ko *.mod.c .tmp_versions
+
