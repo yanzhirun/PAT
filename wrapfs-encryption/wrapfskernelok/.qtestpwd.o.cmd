@@ -1,0 +1,1 @@
+cmd_/home/yzr/yzr/gitlearn/wrapfskernelok/qtestpwd.o := ld -m elf_i386   -r -o /home/yzr/yzr/gitlearn/wrapfskernelok/qtestpwd.o /home/yzr/yzr/gitlearn/wrapfskernelok/crypto_hash.o /home/yzr/yzr/gitlearn/wrapfskernelok/test.o 

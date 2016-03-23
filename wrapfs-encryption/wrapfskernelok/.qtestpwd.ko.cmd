@@ -1,0 +1,1 @@
+cmd_/home/yzr/yzr/gitlearn/wrapfskernelok/qtestpwd.ko := ld -r -m elf_i386 -T ./scripts/module-common.lds --build-id  -o /home/yzr/yzr/gitlearn/wrapfskernelok/qtestpwd.ko /home/yzr/yzr/gitlearn/wrapfskernelok/qtestpwd.o /home/yzr/yzr/gitlearn/wrapfskernelok/qtestpwd.mod.o
