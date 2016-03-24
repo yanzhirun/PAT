@@ -20,7 +20,7 @@ int test_yes_no(int num, char test[10][101])
 		{
 //			printf("\n-------------\n");
 //			printf("test[][]:%c\n",test[i][j]);
-			if(test[i][j] == 'P' || test[i][j] == 'A' || test[i][j] == 'T')
+			if(test[i][j] == 'P' || test[i][j] == 'A' || test[i][j] == 'T' ||test[i][j] == '')
 			{			
 //	printf("test[%d]:%sNO\n",i,test[i]);
 			result = 1;
