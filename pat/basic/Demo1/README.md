@@ -37,5 +37,10 @@
 想明白了以后，写起来还是有很多小细节的
 *if（...）;｛｝*不能加分号；
 break continue 跳出的范围不一样
-
+---
+int testtest(int num, char pat[10][101])
+int testtest(int num, char (*pat)[101])
+数组做函数参数会退化为指针！！
+char pat[10][101] 相当于  char pat[][101] 相当于 char (******pat)[101]
+10 不会传进去！
 

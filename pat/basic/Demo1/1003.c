@@ -82,7 +82,8 @@ int test_PAT (int num, char pat[10][101])
 }
 */
 
-int testtest(int num, char pat[10][101])
+//int testtest(int num, char pat[10][101])
+int testtest(int num, char (*pat)[101])
 {
     int i,j,out;
     char *ptr;
