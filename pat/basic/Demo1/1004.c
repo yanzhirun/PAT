@@ -4,8 +4,8 @@
 
 struct _Student
 {
-    char name[10];
-    char stunum[10];
+    char name[20];
+    char stunum[20];
     int score;
 };
 
@@ -80,9 +80,9 @@ void findstu(int n, struct _Student* stu)
 
     for (i = 0; i < n; i++)
     {
-        if (stu[min_stu].score >= stu[i].score)
+        if (stu[min_stu].score > stu[i].score)
             min_stu = i;
-        if (stu[max_stu].score <= stu[i].score)
+        if (stu[max_stu].score < stu[i].score)
             max_stu = i;
     }
     printf("%s %s\n", stu[max_stu].name, stu[max_stu].stunum);
@@ -96,7 +96,7 @@ int main()
     if (NULL == stu)
     {
         printf("stu created err\n");
-        return ;
+        return 0;
     }
     int n;
     scanf("%d", &n);
