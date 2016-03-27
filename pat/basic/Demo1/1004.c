@@ -4,8 +4,8 @@
 
 struct _Student
 {
-    char name[10];
-    char stunum[10];
+    char name[16];
+    char stunum[16];
     int score;
 };
 
