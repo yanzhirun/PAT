@@ -124,8 +124,8 @@ int testtest(int num, char (*pat)[101])
         //printf("lastA:%d\n", lastA);
         if(lastA == midA * preA)
         {
-             printf("YES\n");
-             continue;
+            printf("YES\n");
+            continue;
         }
         else
         {
@@ -137,17 +137,17 @@ int testtest(int num, char (*pat)[101])
 
 int main()
 {
-	int num, i;
-	char test[10][101] = {0};
-	scanf("%d",&num);
-	for (i = 0; i < num; i++)
-	{
-		scanf("%s",test[i]);
-	}
-//	test_PAT(num, test);
+    int num, i;
+    char test[10][101] = {0};
+    scanf("%d",&num);
+    for (i = 0; i < num; i++)
+    {
+        scanf("%s",test[i]);
+    }
+    //test_PAT(num, test);
 
     testtest(num, test);
-	return 0;
+    return 0;
 }
 
 
