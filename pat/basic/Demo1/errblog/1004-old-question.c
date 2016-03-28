@@ -89,14 +89,16 @@ void findstu(int n, struct _Student* stu)
 int main()
 {
     int i, n;
-    struct _Student *stu;
+    struct _Student *stu == NULL;
+    scanf("%d", &n);
+    stu = creat_stu(n);
+    // 判断应该放到创建之后。
     if (NULL == stu)
     {
         printf("stu created err\n");
         return 0;
     }
-    scanf("%d", &n);
-    stu = creat_stu(n);
+
     scanf_stu(n, stu);
     findstu(n, stu);
     free_struct_stu(n, stu);
