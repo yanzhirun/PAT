@@ -127,17 +127,26 @@ int main()
     sortinput2 (num, input);
     findkey(num, input, output);
 
-
+    int k = 0, key[100] = {0};
     for (i = 0; i < num; i++)
     {
         if (0 != input[i])
         {
             if (1 != input[i])
                 if (input[i] != output[input[i]])
-                    printf("thekey:%d ", input[i]);
+                {
+                    key[k]=input[i];
+                    k++;
+                    printf("%d", input[i]);
+                }
         }
     }
-
+    printf("----------\n");
+    for (i = 0; i < k - 1; i++)
+    {
+        printf("%d ", key[i]);
+    }
+    printf("%d",key[k-1]);
     return 0;
 }
 
