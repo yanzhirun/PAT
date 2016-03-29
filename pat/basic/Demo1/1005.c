@@ -28,6 +28,30 @@ int callatz(int N, int i, int * output)
     //printf("%d\n", i);
 }
 
+int sortinput2(int num, int * input)
+{
+    int err = 0;
+    int temp, i, j;
+    if (NULL == input)
+    {
+        err = 1;
+        printf("input err:%d", err);
+        return err;
+    }
+    for (i = 0; i < num; i++)
+    {
+        for (j = i; j < num; j++)
+        {
+            if (input[i] <= input[j])
+            {
+                temp = input[i];
+                input[i] = input[j];
+                input[j] = temp;
+            }
+        }
+    }
+    return err;
+}
 int sortinput(int num, int * input)
 {
     int err = 0;
@@ -55,6 +79,29 @@ int sortinput(int num, int * input)
 
 int findkey(int n, int * input, int *output)
 {
+    int i, j, k;
+    for (i = 0; i < n; i++)
+    {
+        if (input[i] == 0)
+            continue;
+        printf("input[%d]:%d ", i, input[i]);
+        callatz(input[i], 0, output);
+        for (j = 0; j < 300; j++)
+        {
+            if (output[j] != 0)
+                printf("output[%d]:%d",j,output[j]);
+        }
+        printf("\n--------------\n");
+        for (j = i+1; j < 300; j++)
+        {
+                    if (input[j] == output[input[j]])
+                    {
+                        input[j] = 0;
+                    }
+        }
+    }
+
+    return 0;
 
 }
 
@@ -77,12 +124,17 @@ int main()
     sortinput (num, input);
 
     findkey(num, input, output);
+    sortinput2 (num, input);
+    findkey(num, input, output);
+
 
     for (i = 0; i < num; i++)
     {
         if (0 != input[i])
         {
-            printf("thekey:%d ", input[i]);
+            if (1 != input[i])
+                if (input[i] != output[input[i]])
+                    printf("thekey:%d ", input[i]);
         }
     }
 
