@@ -6,7 +6,7 @@ int callatz(int N, int i, int * output)
 {
     int err = 0;
     int n = N;
-    output[n] = n;
+    //output[n] = n;
     while(n != 1)
     {
         if (n%2 == 0)
@@ -52,6 +52,7 @@ int sortinput2(int num, int * input)
     }
     return err;
 }
+
 int sortinput(int num, int * input)
 {
     int err = 0;
@@ -84,20 +85,21 @@ int findkey(int n, int * input, int *output)
     {
         if (input[i] == 0)
             continue;
-        printf("input[%d]:%d ", i, input[i]);
+        //printf("input[%d]:%d ", i, input[i]);
         callatz(input[i], 0, output);
-        for (j = 0; j < 300; j++)
+       // for (j = 0; j < 300; j++)
         {
-            if (output[j] != 0)
-                printf("output[%d]:%d",j,output[j]);
+        //    if (output[j] != 0)
+         //       printf("output[%d]:%d",j,output[j]);
         }
-        printf("\n--------------\n");
-        for (j = i+1; j < 300; j++)
+       // printf("\n--------------\n");
+        for (j = i+1; j < 99; j++)
         {
                     if (input[j] == output[input[j]])
                     {
                         input[j] = 0;
                     }
+
         }
     }
 
@@ -110,38 +112,39 @@ int main()
 {
     int num, i, input[100] = {0};
     int output[300] = {0};
-    for (i = 0; i < 300; i++)
-    {
-        output[i] = 0;
-        input[i] = 0;
-    }
+    int k = 0, key[100] = {0};
+
     scanf("%d", &num);
+
     for(i = 0; i < num; i++)
     {
         scanf("%d", input+i);
     }
 
     sortinput (num, input);
-
     findkey(num, input, output);
     sortinput2 (num, input);
     findkey(num, input, output);
 
-    int k = 0, key[100] = {0};
+    for (i = 0; i < num ; i++)
+    {
+        printf("%d ", input[i]);
+    }
+    printf("======\n");
     for (i = 0; i < num; i++)
     {
         if (0 != input[i])
         {
             if (1 != input[i])
-                if (input[i] != output[input[i]])
+               // if (input[i] != output[input[i]])
                 {
                     key[k]=input[i];
                     k++;
-                    printf("%d", input[i]);
+      //              printf("%d", input[i]);
                 }
         }
     }
-    printf("----------\n");
+    //printf("----------\n");
     for (i = 0; i < k - 1; i++)
     {
         printf("%d ", key[i]);
