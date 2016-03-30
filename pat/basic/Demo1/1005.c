@@ -12,14 +12,16 @@ int callatz(int N, int i, int * output)
         if (n%2 == 0)
         {
             n = n/2;
-            output[n] = n;
+            if (n < 300)
+                output[n] = n;
             i++;
             return callatz(n, i, output);
         }
         else
         {
             n = (n * 3 + 1)/2;
-            output[n] = n;
+            if (n < 300)
+                output[n] = n;
             i++;
             return callatz(n, i, output);
         }
@@ -126,11 +128,7 @@ int main()
     sortinput2 (num, input);
     findkey(num, input, output);
 
-    for (i = 0; i < num ; i++)
-    {
-        printf("%d ", input[i]);
-    }
-    printf("======\n");
+    //printf("======\n");
     for (i = 0; i < num; i++)
     {
         if (0 != input[i])
