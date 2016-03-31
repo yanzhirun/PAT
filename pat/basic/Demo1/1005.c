@@ -12,16 +12,14 @@ int callatz(int N, int i, int * output)
         if (n%2 == 0)
         {
             n = n/2;
-            if (n < 300)
-                output[n] = n;
+            output[n] = n;
             i++;
             return callatz(n, i, output);
         }
         else
         {
             n = (n * 3 + 1)/2;
-            if (n < 300)
-                output[n] = n;
+            output[n] = n;
             i++;
             return callatz(n, i, output);
         }
