@@ -2,153 +2,45 @@
 #include "stdlib.h"
 #include "string.h"
 
-int callatz(int N, int i, int * output)
-{
-    int err = 0;
-    int n = N;
-    //output[n] = n;
-    while(n != 1)
-    {
-        if (n%2 == 0)
-        {
-            n = n/2;
-            if (n < 300)
-                output[n] = n;
-            i++;
-            return callatz(n, i, output);
-        }
-        else
-        {
-            n = (n * 3 + 1)/2;
-            if (n < 300)
-                output[n] = n;
-            i++;
-            return callatz(n, i, output);
-        }
-        //return err;
-    }
-    //printf("%d\n", i);
-}
-
-int sortinput2(int num, int * input)
-{
-    int err = 0;
-    int temp, i, j;
-    if (NULL == input)
-    {
-        err = 1;
-        printf("input err:%d", err);
-        return err;
-    }
-    for (i = 0; i < num; i++)
-    {
-        for (j = i; j < num; j++)
-        {
-            if (input[i] <= input[j])
-            {
-                temp = input[i];
-                input[i] = input[j];
-                input[j] = temp;
-            }
-        }
-    }
-    return err;
-}
-
-int sortinput(int num, int * input)
-{
-    int err = 0;
-    int temp, i, j;
-    if (NULL == input)
-    {
-        err = 1;
-        printf("input err:%d", err);
-        return err;
-    }
-    for (i = 0; i < num; i++)
-    {
-        for (j = i; j < num; j++)
-        {
-            if (input[i] >= input[j])
-            {
-                temp = input[i];
-                input[i] = input[j];
-                input[j] = temp;
-            }
-        }
-    }
-    return err;
-}
-
-int findkey(int n, int * input, int *output)
-{
-    int i, j, k;
-    for (i = 0; i < n; i++)
-    {
-        if (input[i] == 0)
-            continue;
-        //printf("input[%d]:%d ", i, input[i]);
-        callatz(input[i], 0, output);
-       // for (j = 0; j < 300; j++)
-        {
-        //    if (output[j] != 0)
-         //       printf("output[%d]:%d",j,output[j]);
-        }
-       // printf("\n--------------\n");
-        for (j = i+1; j < 99; j++)
-        {
-                    if (input[j] == output[input[j]])
-                    {
-                        input[j] = 0;
-                    }
-
-        }
-    }
-
-    return 0;
-
-}
 
 
 int main()
 {
-    int num, i, input[100] = {0};
-    int output[300] = {0};
-    int k = 0, key[100] = {0};
+    int i;
+    int num[3] = {0};
+    int n;
 
-    scanf("%d", &num);
-
-    for(i = 0; i < num; i++)
+    scanf("%d", &n);
+    if (n >= 1000 || n < 0)
+        return 0;
+    if (n<1000 && n>99)
     {
-        scanf("%d", input+i);
+        num[0] = n/100;
+        goto shiwei;
     }
-
-    sortinput (num, input);
-    findkey(num, input, output);
-    sortinput2 (num, input);
-    findkey(num, input, output);
-
-    //printf("======\n");
-    for (i = 0; i < num; i++)
+    if (n >= 10 && n <= 99)
     {
-        if (0 != input[i])
-        {
-            if (1 != input[i])
-               // if (input[i] != output[input[i]])
-                {
-                    key[k]=input[i];
-                    k++;
-      //              printf("%d", input[i]);
-                }
-        }
+shiwei:
+        num[1] = (n - num[0]*100)/10;
+        goto gewei;
     }
-    //printf("----------\n");
-    for (i = 0; i < k - 1; i++)
+    if (n >0 && n <10)
     {
-        printf("%d ", key[i]);
+gewei:
+        num[2] = (n - num[0]*100 - num[1]*10);
     }
-    printf("%d",key[k-1]);
+    /*
+    printf ("num:%d\n", num[0]);
+    printf ("num:%d\n", num[1]);
+    printf ("num:%d\n", num[2]);
+    */
+    for (i = 0; i < num[0]; i++)
+        printf("B");
+    for (i = 0; i < num[1]; i++)
+        printf("S");
+    for (i = 1; i <= num[2]; i++)
+        printf("%d",i);
+
     return 0;
 }
-
 
