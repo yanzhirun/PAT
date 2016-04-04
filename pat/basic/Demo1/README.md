@@ -148,6 +148,15 @@ int change_str(char * input_str)
 while(1)
 {
     scanf("%d", &data[pos++]);
-    if( getchar() == '\n' )
-        break;
+    if( getchar() == '\n' )   break;
 }
+获取到 length = pos；length 即为数字个数，因为++ 表示操作之后再加1！
+如果 getchar() 在 scanf 前面，则会从输入流中读取一个字节？而不传入 data 数组中！
+个人感觉 goto 跳转在有特殊值情况的时候用起来比较方便。
+
+##
+
+
+
+
+
