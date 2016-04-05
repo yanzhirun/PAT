@@ -161,7 +161,7 @@ while(1)
 如果 getchar() 在 scanf 前面，则会从输入流中读取一个字节？而不传入 data 数组中！
 个人感觉 goto 跳转在有特殊值情况的时候用起来比较方便。
 
-动态分配 和 释放 多维数组遇到double free 问题，不知道现在的情况是否解决，vs单步调试的时候会报错，完整运行，和gcc环境都可以正常工作。[代码](https://github.com/yanzhirun/PAT-go/tree/master/pat/basic/Demo1/errblog)errblog\*m动态分配数组.c
-
+动态分配 和 释放 多维数组遇到double free 问题，不知道现在的情况是否解决，vs单步调试的时候会报错，完整运行，和gcc环境都可以正常工作。
+[n*m动态分配数组.c](https://github.com/yanzhirun/PAT-go/blob/master/pat/basic/Demo1/errblog/n*m%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D%E6%95%B0%E7%BB%84.c)
 
 
