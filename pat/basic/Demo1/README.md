@@ -143,6 +143,13 @@ int change_str(char * input_str)
   字符串输入可以有空格
   fgets(input_str, sizeof(input_str), stdin);
 
+##1011. A+B和C (15)
+给定区间[-231, 231]内的3个整数A、B和C，请判断A+B是否大于C。
+输入格式：
+输入第1行给出正整数T(<=10)，是测试用例的个数。随后给出T组测试用例，每组占一行，顺序给出A、B和C。整数间以空格分隔。
+输出格式：
+对每组测试用例，在一行中输出“Case #X: true”如果A+B>C，否则输出“Case #X: false”，其中X是测试用例的编号（从1开始）。)
+
 ---
 输入多个数字保存到数组，以空格分隔，回车结束输入；
 while(1)
@@ -154,9 +161,7 @@ while(1)
 如果 getchar() 在 scanf 前面，则会从输入流中读取一个字节？而不传入 data 数组中！
 个人感觉 goto 跳转在有特殊值情况的时候用起来比较方便。
 
-##
-
-
+动态分配 和 释放 多维数组遇到double free 问题，不知道现在的情况是否解决，vs单步调试的时候会报错，完整运行，和gcc环境都可以正常工作。[代码](https://github.com/yanzhirun/PAT-go/tree/master/pat/basic/Demo1/errblog)errblog\*m动态分配数组.c
 
 
 
