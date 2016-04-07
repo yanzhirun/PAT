@@ -231,6 +231,101 @@ if中的条件判断可以加括号 类似 ((()&&())||())最外层满足同样�
 *注意* 格式  看清题目要求 喜欢玩文字游戏 大小写 有符号 第几位 从0开始计算 末尾无空格之类。  
 <a href="#catalogue"> back to catalogue </a>
 
-##1015.
+##<p id ="1014">1#1015. 德才论 (25)</p>
+宋代史学家司马光在《资治通鉴》中有一段著名的“德才论”：“是故才德全尽谓之圣人，才德兼亡谓之愚人，德胜才谓之君子，才胜德谓之小人。凡取人之术，苟不得圣人，君子而与之，与其得小人，不若得愚人。”
+
+现给出一批考生的德才分数，请根据司马光的理论给出录取排名。
+
+输入格式：
+
+输入第1行给出3个正整数，分别为：N（<=105），即考生总数；L（>=60），为录取最低分数线，即德分和才分均不低于L的考生才有资格被考虑录取；H（<100），为优先录取线——德分和才分均不低于此线的被定义为“才德全尽”，此类考生按德才总分从高到低排序；才分不到但德分到线的一类考生属于“德胜才”，也按总分排序，但排在第一类考生之后；德才分均低于H，但是德分不低于才分的考生属于“才德兼亡”但尚有“德胜才”者，按总分排序，但排在第二类考生之后；其他达到最低线L的考生也按总分排序，但排在第三类考生之后。
+随后N行，每行给出一位考生的信息，包括：准考证号、德分、才分，其中准考证号为8位整数，德才分为区间[0, 100]内的整数。数字间以空格分隔。>
+输出格式：
+输出第1行首先给出达到最低分数线的考生人数M，随后M行，每行按照输入格式输出一位考生的信息，考生按输入中说明的规则从高到低排序。当某类考生中有多人总分相同时，按其德分降序排列；若德分也并列，则按准考证号的升序输出
+
+---
+思路：两条分数线，两门课，分为四类，两门都达优秀线，两门都不达录取线，一门及格线一门达优秀线，两门都不达优秀线但达到录取线。
+先按总分排序，并列的，先按德分，再按照准考证号，
+三个数组放优秀 一半优秀 及格 的 不及格的不考虑。然后对这三组排序输出。
+
+---
+**关于动态分配和释放内存空间** 先分配外层 再 内层 释放的时候注意从内向外释放，所谓的向外释放 要把多维看成一维 实质上内存空间是按照1维存储的  
+创建了 4\*4 的数组 前面是存放的数据 后面是地址 但是不同行的存放是不连续的？！~~（不知道对不对）！~~  
+![结果图](https://github.com/yanzhirun/PAT-go/blob/master/pat/basic/Demo1/errblog/img/test_address%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D%E9%87%8A%E6%94%BE.png)
+`<
+int **input_info (int N)
+{
+    int **p_stu = NULL;
+    int i = 0;
+    p_stu = (int**)malloc(N*sizeof(int*));
+    if (NULL == p_stu)
+    {
+        printf("malloc err!\n");
+        return NULL;
+    }
+    for (i = 0; i < N; i++)
+    {
+        //p_stu[i] = (int*)malloc(3*sizeof(int));//分配N行* 3列数组
+        p_stu[i] = (int*)malloc(4*sizeof(int));//分配N行 *4列 第四列用来存放状态信息，注意释放也要改为4；
+        //*(p_stu+i) = (int*)malloc(3*sizeof(int));
+        printf("malloc arr success!\n");
+    }
+
+    return p_stu;
+}
+
+int arr_free(int **p_stu, int row)
+{
+    int i;
+
+    if (NULL == p_stu)
+    {
+        return 0;
+    }
+    for (i = 0; i < row; i++)
+    {
+        if (NULL != p_stu[i])
+        {
+            free(p_stu[i]);
+            p_stu[i] = NULL;
+        }
+    }
+    if (NULL != p_stu)
+        free (p_stu);
+
+    return 0;
+}
+
+int classify_stu(int ** p_stu, int N, int H, int L)
+{
+    int ret = 1, i = 0;
+    if (NULL == p_stu)
+    {
+        ret = 0;
+        printf("p_stu err!\n");
+        return ret;
+    }
+
+    for (i = 0; i < N; i++)
+    {
+        if (p_stu[i][1] >= H && p_stu[i][2] >= H)
+        {
+            p_stu[i][3] = 1;
+        }
+        else if (p_stu[i][1] >= H && p_stu[i][2] >=L && p_stu[i][2] < H)
+        {
+            p_stu[i][3] = 2;
+        }
+        else if (p_stu[i][1] >= L && p_stu[i][1] < H && p_stu[i][2] >=L && p_stu[i][2] < H)
+        {
+            p_stu[i][3] = 3;
+        }
+    }
 
 
+    return ret;
+}
+
+>`
+![测试代码](https://github.com/yanzhirun/PAT-go/blob/master/pat/basic/Demo1/errblog/img/test_address_code%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D%E9%87%8A%E6%94%BE.png) 
+<a href="#catalogue"> back to catalogue </a>
