@@ -252,80 +252,20 @@ if中的条件判断可以加括号 类似 ((()&&())||())最外层满足同样�
 **关于动态分配和释放内存空间** 先分配外层 再 内层 释放的时候注意从内向外释放，所谓的向外释放 要把多维看成一维 实质上内存空间是按照1维存储的  
 创建了 4\*4 的数组 前面是存放的数据 后面是地址 但是不同行的存放是不连续的？！~~（不知道对不对）！~~  
 ![结果图](https://github.com/yanzhirun/PAT-go/blob/master/pat/basic/Demo1/errblog/img/test_address%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D%E9%87%8A%E6%94%BE.png)
-`<
-int **input_info (int N)
-{
-    int **p_stu = NULL;
-    int i = 0;
-    p_stu = (int**)malloc(N*sizeof(int*));
-    if (NULL == p_stu)
-    {
-        printf("malloc err!\n");
-        return NULL;
-    }
-    for (i = 0; i < N; i++)
-    {
-        //p_stu[i] = (int*)malloc(3*sizeof(int));//分配N行* 3列数组
-        p_stu[i] = (int*)malloc(4*sizeof(int));//分配N行 *4列 第四列用来存放状态信息，注意释放也要改为4；
-        //*(p_stu+i) = (int*)malloc(3*sizeof(int));
-        printf("malloc arr success!\n");
-    }
-
-    return p_stu;
-}
-
-int arr_free(int **p_stu, int row)
-{
-    int i;
-
-    if (NULL == p_stu)
-    {
-        return 0;
-    }
-    for (i = 0; i < row; i++)
-    {
-        if (NULL != p_stu[i])
-        {
-            free(p_stu[i]);
-            p_stu[i] = NULL;
-        }
-    }
-    if (NULL != p_stu)
-        free (p_stu);
-
-    return 0;
-}
-
-int classify_stu(int ** p_stu, int N, int H, int L)
-{
-    int ret = 1, i = 0;
-    if (NULL == p_stu)
-    {
-        ret = 0;
-        printf("p_stu err!\n");
-        return ret;
-    }
-
-    for (i = 0; i < N; i++)
-    {
-        if (p_stu[i][1] >= H && p_stu[i][2] >= H)
-        {
-            p_stu[i][3] = 1;
-        }
-        else if (p_stu[i][1] >= H && p_stu[i][2] >=L && p_stu[i][2] < H)
-        {
-            p_stu[i][3] = 2;
-        }
-        else if (p_stu[i][1] >= L && p_stu[i][1] < H && p_stu[i][2] >=L && p_stu[i][2] < H)
-        {
-            p_stu[i][3] = 3;
-        }
-    }
 
 
-    return ret;
-}
-
->`
 ![测试代码](https://github.com/yanzhirun/PAT-go/blob/master/pat/basic/Demo1/errblog/img/test_address_code%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D%E9%87%8A%E6%94%BE.png) 
+复制二维数组 到另一个二维数组
+>  memcpy(\*(coparr+i),\*(input+i), sizeof(int)\*3);
+>  [code](https://github.com/yanzhirun/PAT-go/blob/master/pat/basic/Demo1/errblog/copy_nXn%E5%A4%8D%E5%88%B6%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84.c)
+定义二维数组arr[1][3] 1,3 表示的是大小，实际上用的是arr[0][]  
+传递参数
+函数A() 函数B() A中定义二维数组arr[5][5] A调用B将数组传过去 void B((\*arr)[5]){} 即可
+> int A()
+> {...
+> int arr[5][5];
+> B(arr);}
+> int B(int (\*arr)[4]){...}
+二维数组和二级指针不是一个概念，传数组用如上方法。
+---
 <a href="#catalogue"> back to catalogue </a>

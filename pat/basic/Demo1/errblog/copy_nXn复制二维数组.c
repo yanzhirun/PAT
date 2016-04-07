@@ -55,7 +55,7 @@ int main()
             scanf("%d", &input[i][j]);
         }
     }
-    printf("=====diyige:\n");
+    printf("打印保存的数组input:\n");
     for (i = 0; i < line_num; i++)
     {
         for (j = 0; j < row_num; j++)
@@ -67,12 +67,17 @@ int main()
     printf("=====\n");
 
 //复制 n*3 二维数组
-   // int (*p_copy)[3];
-    int coparr[3][3];
+    int coparr[1][3];
     for (i = 0; i < 3; i++)
     {
         //*coparr[i] = *input[i];
-        memcpy(*(coparr+i), *(input+i), sizeof(int)*3);
+        memcpy(*coparr, *(input+i), sizeof(int)*3);
+       // memcpy(coparr[0], input[i], sizeof(int)*3);
+        for (j = 0; j < 3; j++)
+        {
+            printf("copy:%d ", coparr[0][j]);
+        }
+        printf("\n");
     }
 
     if (NULL != input)
@@ -81,16 +86,6 @@ int main()
         input = NULL;
     }
 
-    printf("\ncopp\n=====\n");
-    for (i = 0; i < 3; i++)
-    {
-        for (j = 0; j < 3; j++)
-        {
-            printf("%d ", coparr[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\ncopp\n=====\n");
 //        printf("input[i]:%d\n", input[0]);
     return 0;
 }
