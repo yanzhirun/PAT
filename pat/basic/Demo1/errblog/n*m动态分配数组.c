@@ -27,7 +27,7 @@ int input_free(long int ** input,int row_num)
     {
          return 0;
     }
-    for (i = 0; i < row_num; i++)
+    for (i = 0; i < line_num; i++)
     {
         if (NULL != input[i])
         {
