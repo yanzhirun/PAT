@@ -45,11 +45,19 @@ int arr_free(int **p_stu, int row)
     return 0;
 }
 
-int classify_stu(int ** p_stu, int N, int H, int L)
+int classify_stu(int ** p_stu, int N, int L, int H)
 {
     int ret = 1, i = 0, j = 0, p = 0, q = 0, y = 0;
-    int great[100][4], mid[100][4],last[100][4],nor[100][4];
-    if (NULL == p_stu)
+    //int great[100][4], mid[100][4],last[100][4],nor[100][4];
+    int **great = NULL;
+    int **mid = NULL;
+    int **last = NULL;
+    int **nor = NULL;
+    great = input_info(N);
+    mid = input_info(N);
+    last = input_info(N);
+    nor = input_info(N);
+    if (NULL == p_stu|| NULL == great|| NULL == mid ||NULL == last || NULL == nor )
     {
         ret = 0;
         printf("p_stu err!\n");
@@ -61,12 +69,14 @@ int classify_stu(int ** p_stu, int N, int H, int L)
         p_stu[i][3] = p_stu[i][1] + p_stu[i][2];
         if (p_stu[i][1] >= H && p_stu[i][2] >= H)
         {
+            great[j] =p_stu[i];
             memcpy(*(great+j), *(p_stu+i), sizeof(int)*4);
             //printf("great:%d\n", great[j][3]);
             j++;
         }
         else if (p_stu[i][1] >= H && p_stu[i][2] >= L && p_stu[i][2] < H)
         {
+            mid [p] = p_stu[i];
             memcpy(*(mid+p), *(p_stu+i), sizeof(int)*4);
             //printf("mid:%d\n", mid[p][3]);
             p++;
@@ -77,25 +87,46 @@ int classify_stu(int ** p_stu, int N, int H, int L)
             //printf("last:%d\n", last[q][3]);
             q++;
         }
-        else if (p_stu[i][1] >= L && p_stu[i][1] < H && p_stu[i][2] >=L && p_stu[i][2] < H)
+        else if (p_stu[i][1] >= L && p_stu[i][1] < H && p_stu[i][2] >=L && p_stu[i][1] < p_stu[i][2])
         {
-            memcpy(*(nor+q), *(p_stu+i), sizeof(int)*4);
+            memcpy(*(nor+y), *(p_stu+i), sizeof(int)*4);
             //printf("nor:%d\n", nor[y][3]);
             y++;
         }
     }
 
     //printf("做标记ok,j:%d\n",j);
-    printf ("%d", j + p + q + y);
-        sort_socre(great, 1, j);
-        sort_socre(mid, 2, p);
-        sort_socre(last, 3, q);
-        sort_socre(nor, 4, y);
+    printf ("%d\n", j + p + q + y);
+        sort_socre(great, j);
+        sort_socre(mid, p);
+        sort_socre(last, q);
+        sort_socre(nor, y);
+
+        if (great != NULL)
+        {
+            arr_free(great,N);
+            great = NULL;
+        }
+        if (mid != NULL)
+        {
+            arr_free(mid,N);
+            mid = NULL;
+        }
+        if (last != NULL)
+        {
+            arr_free(last, N);
+            last = NULL;
+        }
+        if (nor != NULL)
+        {
+            arr_free(nor, N);
+            nor = NULL;
+        }
 
     return ret;
 }
 
-int sort_socre(int (*sort_arr)[4], int status, int ac_num)
+int sort_socre(int **sort_arr, int ac_num)
 {
     int i = 0, j = ac_num, k = 0, q = 0;
     //printf("打印sort_arr:%d\n", sort_arr[0][3]);
@@ -104,20 +135,17 @@ int sort_socre(int (*sort_arr)[4], int status, int ac_num)
         printf("sort_score err");
         return 0;
     }
-    //int **new_sort_arr = input_info(ac_num);
-//    int sort_arr[10][4] = {0} ;
     int tmp[1][4] = {0};
 
     //printf("打印排序 j:%d\n",j);
     //比总分
-    for (k = 0; k < j ; k++)
+    for (k = 0; k < j-1 ; k++)
     {
-
     //printf("打印crcle k:%d\n", k);
     //printf("打印sort_arr:%d\n", sort_arr[k][3]);
-        for (q = k+1; q < j-1; q++)
+        for (q = k+1; q < j; q++)
         {
-            if (sort_arr[k][3] <= sort_arr[q][3])
+            if (sort_arr[k][3] < sort_arr[q][3])
             {
     //printf("打印crcle k:%d\n", sort_arr[k][3]);
                 memcpy (*tmp, *(sort_arr + k), sizeof(int)*4);
@@ -134,34 +162,28 @@ int sort_socre(int (*sort_arr)[4], int status, int ac_num)
         }
     }
     //比单项分
-    for (k = 0; k < j; k++)
+    for (k = 0; k < j -1; k++)
     {
-        for (q = k+1; q < j-1; q++)
+        for (q = k+1; q < j; q++)
         {
-            if (sort_arr[k][3] == sort_arr[q][3] && sort_arr[k][1] != sort_arr[q][1])
+            if (sort_arr[k][3] == sort_arr[q][3] && sort_arr[k][1] < sort_arr[q][1])
             {
-                if ( sort_arr[k][1] <= sort_arr[q][1] )
-                {
-                    memcpy (*tmp, *(sort_arr + k), sizeof(int)*4);
-                    memcpy (*(sort_arr + k), *(sort_arr + q), sizeof(int)*4);
-                    memcpy (*(sort_arr + q), *tmp, sizeof(int)*4);
-                }
+                memcpy (*tmp, *(sort_arr + k), sizeof(int)*4);
+                memcpy (*(sort_arr + k), *(sort_arr + q), sizeof(int)*4);
+                memcpy (*(sort_arr + q), *tmp, sizeof(int)*4);
             }
         }
     }
     //比序号
-    for (k = 0; k < j; k++)
+    for (k = 0; k < j - 1; k++)
     {
-        for (q = k+1; q < j-1; q++)
+        for (q = k+1; q < j; q++)
         {
-            if (sort_arr[k][3] == sort_arr[q][3] && sort_arr[k][1] == sort_arr[q][1] )
+            if (sort_arr[k][3] == sort_arr[q][3] && sort_arr[k][1] == sort_arr[q][1] && sort_arr[k][0] > sort_arr[q][0])
             {
-                if (sort_arr[k][0] > sort_arr[q][0])
-                {
-                    memcpy (*tmp, *(sort_arr + k), sizeof(int)*4);
-                    memcpy (*(sort_arr + k), *(sort_arr + q), sizeof(int)*4);
-                    memcpy (*(sort_arr + q), *tmp, sizeof(int)*4);
-                }
+                memcpy (*tmp, *(sort_arr + k), sizeof(int)*4);
+                memcpy (*(sort_arr + k), *(sort_arr + q), sizeof(int)*4);
+                memcpy (*(sort_arr + q), *tmp, sizeof(int)*4);
             }
         }
     }
@@ -193,7 +215,7 @@ int main()
         p_stu[i][3] = 0;
     }
 
-    classify_stu(p_stu, N, H, L);
+    classify_stu(p_stu, N, L, H);
     //total_score = p_stu[i][1] + p_stu[i][2];
     /*    for (i = 0; i < N; i++)
           {
