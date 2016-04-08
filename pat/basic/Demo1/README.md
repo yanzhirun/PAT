@@ -254,12 +254,11 @@ if中的条件判断可以加括号 类似 ((()&&())||())最外层满足同样�
 ![结果图](https://github.com/yanzhirun/PAT-go/blob/master/pat/basic/Demo1/errblog/img/test_address%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D%E9%87%8A%E6%94%BE.png)
 
 
-复制二维数组 到另一个二维数组
+复制二维数组 到另一个二维数组 [Code](https://github.com/yanzhirun/PAT-go/blob/master/pat/basic/Demo1/errblog/copy_nXn%E5%A4%8D%E5%88%B6%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84.c)
 >  memcpy(\*(coparr+i),\*(input+i), sizeof(int)\*3);  
 
-[code](https://github.com/yanzhirun/PAT-go/blob/master/pat/basic/Demo1/errblog/copy_nXn%E5%A4%8D%E5%88%B6%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84.c)
 定义二维数组arr[1][3] 1,3 表示的是大小，实际上用的是arr[0][]  
-传递参数
+*传递参数*  
 函数A() 函数B() A中定义二维数组arr[5][5] A调用B将数组传过去 void B((\*arr)[5]){} 即可
 > int A()  
  {...  
