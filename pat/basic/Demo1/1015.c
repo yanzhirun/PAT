@@ -107,9 +107,9 @@ int classify_stu(int ** p_stu, int N, int L, int H,int class_1,int class_2,int c
     //printf("做标记ok,j:%d\n",j);
     printf ("%d\n", j + p + q + y);
         sort_socre(great, j);
-        sort_socre(mid, p);
-        sort_socre(last, q);
-        sort_socre(nor, y);
+    //    sort_socre(mid, p);
+    //    sort_socre(last, q);
+    //    sort_socre(nor, y);
 
         if (great != NULL)
         {
@@ -135,7 +135,35 @@ int classify_stu(int ** p_stu, int N, int L, int H,int class_1,int class_2,int c
     return ret;
 }
 
+//bool cmp(int *p, int *q)
+int cmp(int *p, int *q)
+{
+    //if(p[1] + p[2] == q[1] + q[2])
+    if(p[3] == q[3])
+    {
+        if (p[1] == q[1])
+        {
+            return p[0] < q[0];
+        }
+        else return p[1] > q[1];
+    }
+    else return p[3] > q[3];
+    //else return p[1] + p[2] > q[1] + q[2];
+}
+
 int sort_socre(int **sort_arr, int ac_num)
+{
+    int i = 0;
+    qsort(sort_arr, ac_num, sizeof(*ort_arr), cmp);
+    for (i = 0; i < ac_num; i++)
+    {
+        printf("%d %d %d\n", sort_arr[i][0], sort_arr[i][1], sort_arr[i][2]);
+    }
+printf ("ac_num%d", ac_num);
+    return 0;
+}
+
+int sort_socre_old(int **sort_arr, int ac_num)
 {
     int i = 0, j = ac_num, k = 0, q = 0;
     //printf("打印sort_arr:%d\n", sort_arr[0][3]);
