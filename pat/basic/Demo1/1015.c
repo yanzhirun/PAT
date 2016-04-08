@@ -45,18 +45,25 @@ int arr_free(int **p_stu, int row)
     return 0;
 }
 
-int classify_stu(int ** p_stu, int N, int L, int H)
+int classify_stu(int ** p_stu, int N, int L, int H,int class_1,int class_2,int class_3,int class_4)
 {
-    int ret = 1, i = 0, j = 0, p = 0, q = 0, y = 0;
+    //int ret = 1, i = 0, j = 0, p = 0, q = 0, y = 0;
     //int great[100][4], mid[100][4],last[100][4],nor[100][4];
+    int ret = 1, i = 0;
+    //int j = class_1, p = class_2, q = class_3, y = class_4;
+    int j = 0, p = 0, q = 0, y = 0;
     int **great = NULL;
     int **mid = NULL;
     int **last = NULL;
     int **nor = NULL;
-    great = input_info(N);
-    mid = input_info(N);
-    last = input_info(N);
-    nor = input_info(N);
+    great = input_info(class_1);
+    mid = input_info(class_2);
+    last = input_info(class_3);
+    nor = input_info(class_4);
+//    great = input_info(N);
+//    mid = input_info(N);
+//    last = input_info(N);
+//    nor = input_info(N);
     if (NULL == p_stu|| NULL == great|| NULL == mid ||NULL == last || NULL == nor )
     {
         ret = 0;
@@ -66,17 +73,19 @@ int classify_stu(int ** p_stu, int N, int L, int H)
 
     for (i = 0; i < N; i++)
     {
+        if (p_stu[i][3] == 1)
+        {
+           continue;
+        }
         p_stu[i][3] = p_stu[i][1] + p_stu[i][2];
         if (p_stu[i][1] >= H && p_stu[i][2] >= H)
         {
-            great[j] =p_stu[i];
             memcpy(*(great+j), *(p_stu+i), sizeof(int)*4);
             //printf("great:%d\n", great[j][3]);
             j++;
         }
         else if (p_stu[i][1] >= H && p_stu[i][2] >= L && p_stu[i][2] < H)
         {
-            mid [p] = p_stu[i];
             memcpy(*(mid+p), *(p_stu+i), sizeof(int)*4);
             //printf("mid:%d\n", mid[p][3]);
             p++;
@@ -104,22 +113,22 @@ int classify_stu(int ** p_stu, int N, int L, int H)
 
         if (great != NULL)
         {
-            arr_free(great,N);
+            arr_free(great, class_1);
             great = NULL;
         }
         if (mid != NULL)
         {
-            arr_free(mid,N);
+            arr_free(mid, class_2);
             mid = NULL;
         }
         if (last != NULL)
         {
-            arr_free(last, N);
+            arr_free(last, class_3);
             last = NULL;
         }
         if (nor != NULL)
         {
-            arr_free(nor, N);
+            arr_free(nor, class_4);
             nor = NULL;
         }
 
@@ -200,6 +209,7 @@ int main()
     int i, j, k;
     int **p_stu = NULL;
 
+    int class_1 = 0, class_2 = 0, class_3 = 0, class_4 = 0;
     int total_score;
     scanf("%d%d%d", &N, &L, &H);
     //    printf("N:%d  L:%d  H:%d\n", N, L, H);
@@ -212,10 +222,31 @@ int main()
         {
             scanf("%d",&p_stu[i][j]);
         }
+        if (p_stu[i][1] >= H && p_stu[i][2] >= H)
+        {
+            class_1++;
+        }
+        else if (p_stu[i][1] >= H && p_stu[i][2] >= L && p_stu[i][2] < H)
+        {
+            class_2++;
+        }
+        else if (p_stu[i][1] >= L && p_stu[i][1] < H && p_stu[i][2] >=L && p_stu[i][2] < H && p_stu[i][1] >= p_stu[i][2])
+        {
+            class_3++;
+        }
+        else if (p_stu[i][1] >= L && p_stu[i][1] < H && p_stu[i][2] >=L && p_stu[i][1] < p_stu[i][2])
+        {
+            class_4++;
+        }
+        else{
+            p_stu[i][3] = 1;
+            continue;
+        }
         p_stu[i][3] = 0;
     }
 
-    classify_stu(p_stu, N, L, H);
+
+    classify_stu(p_stu, N, L, H, class_1,class_2,class_3,class_4);
     //total_score = p_stu[i][1] + p_stu[i][2];
     /*    for (i = 0; i < N; i++)
           {
