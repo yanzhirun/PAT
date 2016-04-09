@@ -267,5 +267,36 @@ if中的条件判断可以加括号 类似 ((()&&())||())最外层满足同样�
 > int B(int (\*arr)[4]){...}  
 
 **二维数组和二级指针不是一个概念，传数组用如上方法。**  
+****问题总结：* 提交的时候有两个测试用例超时，采用冒泡排序的时间太长，查资料换用 c 提供的函数 qsort()  
+
+>/* 二维数组排序调用 qsort
+ * return a > b ? 1;-1;
+ * 如果a > b 返回1 按照降序排列，
+ * qsort() 最后一个参数cmp可任意取名 ，返回1 表示交换 0 相等
+ * cmp()的参数const * 内部强制转换，注意 一维二维
+ * 多维数组可以用结构体类型
+> */
+>
+int cmp(const void *p, const void *q)
+{
+    int **left = (int **)p;
+    int **right = (int **)q;
+
+    if ((*left)[3] ==(*right)[3])
+    {
+        if ((*left)[1] == (*right)[1])
+        {
+            return  ((*left)[0] > (*right)[0])? 1:-1;
+        }
+        else return ((*left)[1] > (*right)[1])? -1:1;
+    }
+    else return ((*left)[3] > (*right)[3])?-1:1;
+}
+
+>qsort(sort_arr, ac_num, sizeof(*sort_arr), cmp);  
+![1015submit](https://github.com/yanzhirun/PAT-go/blob/master/pat/basic/Demo1/errblog/img/1015_submit.png)  
+代码不够简洁，逻辑上是正确的，但是有很多是不必要的浪费  
+如二维数组的第四列，由于开始时候思考的是放标志位，但是后来并没有起到太大作用，反而增大了使用空间。  
+在输入的时候加人判断，剔除不合格的人选，后来创建四类人群数组的时候又判断了一次。
 
 <a href="#catalogue"> back to catalogue </a>
