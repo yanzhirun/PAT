@@ -276,25 +276,21 @@ if中的条件判断可以加括号 类似 ((()&&())||())最外层满足同样�
   cmp()的参数const * 内部强制转换，注意 一维二维，多维数组可以用结构体类型  
 
 >qsort(sort_arr, ac_num, sizeof(*sort_arr), cmp);
-
-
-
-
->
-int cmp(const void *p, const void *q)
+>>int cmp(const void p, const void q)
 {
-  int **left = (int **)p;
-  int **right = (int **)q;
-  if ((*left)[3] ==(*right)[3])
-  {
-    if ((*left)[1] == (*right)[1])
+    int **left = (int **)p;
+    int **right = (int **)q;
+    if ((*left)[3] ==(*right)[3])
     {
-       return  ((*left)[0] > (*right)[0])? 1:-1;
+        if ((*left)[1] == (*right)[1])
+        {
+            return  ((*left)[0] > (*right)[0])? 1:-1;
+        }
+        else return ((*left)[1] > (*right)[1])? -1:1;
     }
-    else return ((*left)[1] > (*right)[1])? -1:1;
-  }
     else return ((*left)[3] > (*right)[3])?-1:1;
 }
+
 
   
 ![1015submit](https://github.com/yanzhirun/PAT-go/blob/master/pat/basic/Demo1/errblog/img/1015_submit.png)  
