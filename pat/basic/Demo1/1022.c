@@ -1,6 +1,5 @@
 #include "stdlib.h"
 #include "stdio.h"
-#include "string.h"
 
 int conversion_num(int i_A, int i_B, int i_D, int *c_num_output)
 {
@@ -13,28 +12,26 @@ int conversion_num(int i_A, int i_B, int i_D, int *c_num_output)
     }
 
     num = i_A + i_B;
-    if (2 == i_D)
-    {
-        tmp = num;
-        do{
-            c_num_output[i]= tmp % 2;
-            printf ("cnum i :%d\n", c_num_output[i]);
-            tmp = tmp/2;
-            printf ("tmp:%d\n", tmp);
-            i++;
-        }while(tmp != 0);
-        for (j = i-1; j >= 0; j--)
-        {
-    //        printf ("%d",c_num_output[j]);
-            //printf ("output:%d",c_num_output[j]);
-        }
-    }
     if (i_D == 10)
     {
         printf("%d", num);
         return ret;
     }
-
+    if (i_D > 1 && i_D < 10)
+    {
+        tmp = num;
+        do{
+            c_num_output[i]= tmp % i_D;
+    //        printf ("cnum i :%d\n", c_num_output[i]);
+            tmp = tmp/i_D;
+   //         printf ("tmp:%d\n", tmp);
+            i++;
+        }while(tmp != 0);
+        for (j = i-1; j >= 0; j--)
+        {
+            printf ("%d",c_num_output[j]);
+        }
+    }
 
     return ret;
 }
@@ -48,7 +45,7 @@ int main()
 
     conversion_num(i_A, i_B, i_D, c_num_output);
 
-    printf ("A:%d B:%d\n", i_A, i_B);
+//    printf ("A:%d B:%d\n", i_A, i_B);
 
     return 0;
 }
