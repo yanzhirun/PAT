@@ -19,7 +19,7 @@ long int ** inputABC(int line_num, int row_num)
     return input;
 }
 
-int input_free(long int ** input,int row_num)
+int input_free(long int ** input,int line_num)
 {
     int i;
 

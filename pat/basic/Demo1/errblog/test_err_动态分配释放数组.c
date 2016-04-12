@@ -22,7 +22,7 @@ int **input_info (int N)
     return p_stu;
 }
 
-int arr_free(int **p_stu, int row)
+int arr_free(int **p_stu, int N)
 {
     int i;
 
@@ -30,7 +30,7 @@ int arr_free(int **p_stu, int row)
     {
         return 0;
     }
-    for (i = 0; i < row; i++)
+    for (i = 0; i < N; i++)
     {
         if (NULL != p_stu[i])
         {
@@ -103,7 +103,7 @@ int main()
     {
         for (j = 0; j < 4; j++)
         {
-            printf("%d ",*(p_stu + i) + j);
+            printf("%d ",*(*(p_stu + i) + j));
         }
         printf("\n");
     }

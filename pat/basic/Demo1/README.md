@@ -389,7 +389,42 @@ Floating point exception (core dumped)
 对每组测试用例，在一行中输出最大收益，以亿元为单位并精确到小数点后2位。
 
 ---
-思路：
+思路：保存到二维数组中，第三列存放单价，按照单价排序，先放单价最高的，放不满在放次高的，最后剩下的空间不能放完一种物品，放一部分。输出总价。  
+
+问题：
+提交出现段错误，考虑是否生成动态数组出错或者 free 出错。  
+考虑判断过程出错
+可以生成只有一行的数组，可以生成 1*1 的数组，释放也没有问题。  
+输入数据 一行 报错 
+>
+Segmentation fault (core dumped)
+
+一直没有发现问题所在，换用VS调试
+>
+while(p_commodity[i][0] <= i_need - total && i_kind > i)
+
+这一行有问题，如果输入 3组数据， 都满足这个条件，i++之后，再进入这一行判断条件是否满足的时候 p_commodity[]就会越界，可以把while语句中的条件交换， i_kind>i 放在前面， 或者如下。
+>
+    while(p_commodity[i][0] <= i_need - total)
+    {
+        total += p_commodity[i][0];
+        price += p_commodity[i][1];
+        i++;
+        if (i_kind <= i)
+            break;
+    }
+
+
+按列输入的时候 scanf 语句需要注意 如下：  
+>
+    for (i = 0; i < i_kind; i++)
+    {
+        //    scanf ("%f", &p_commodity[i][0]);
+        //    scanf ("%f", (p_commodity+i)[0]);
+        scanf ("%f", *(p_commodity+i));
+    }  
+
+排序qsort() 需要注意cmp 部分。  
 
 
 <a href="#catalogue"> back to catalogue </a>  
