@@ -26,7 +26,7 @@
 -<a href="#1022">1022. d进制的a+b (20)</a>  
 -<a href="#1023">1023. 组个最小数 (20)</a>  
 -<a href="#1024">1024. 科学计数法 (20)</a>  
-
+-<a href="#1025">1025. 反转链表 (25)</a>  
 
 
 
@@ -500,3 +500,21 @@ while(p_commodity[i][0] <= i_need - total && i_kind > i)
 <a href="#catalogue"> back to catalogue </a>  
 
 
+##<p id="1025">1025. 反转链表 (25)</p>
+
+给定一个常数K以及一个单链表L，请编写程序将L中每K个结点反转。例如：给定L为1→2→3→4→5→6，K为3，则输出应该为3→2→1→6→5→4；如果K为4，则输出应该为4→3→2→1→5→6，即最后不到K个元素不反转。
+输入格式：
+每个输入包含1个测试用例。每个测试用例第1行给出第1个结点的地址、结点总个数正整数N(<= 105)、以及正整数K(<=N)，即要求反转的子链结点的个数。结点的地址是5位非负整数，NULL地址用-1表示。
+接下来有N行，每行格式为：
+Address Data Next
+其中Address是结点地址，Data是该结点保存的整数数据，Next是下一结点的地址。
+输出格式：
+对每个测试用例，顺序输出反转后的链表，其上每个结点占一行，格式与输入相同。>)>)
+
+---
+由于不了解链表的知识，根据理解到的题目意思，选择二维数组存储数据，并且按要求排序，但是提交全部都是段错误。
+开始学习链表知识，[创建链表](https://github.com/yanzhirun/PAT/blob/master/pat/basic/Demo1/errblog/linklist.c)，[逆转链表](https://github.com/yanzhirun/PAT/blob/master/pat/basic/Demo1/errblog/linkrevse.c)  
+
+这道题 提交总是段错误，没有找到解决方案，这几天准备考试，先放一放。
+
+<a href="#catalogue"> back to catalogue </a>  
