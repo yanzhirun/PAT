@@ -464,8 +464,6 @@ while(p_commodity[i][0] <= i_need - total && i_kind > i)
 
 思路：计算出 A + B 的和 ，转化成 i_D 进制的数用除 i_D 取余数，直到商为零，倒序输出余数即为所求。  
 
-
-
 <a href="#catalogue"> back to catalogue </a>  
 
 
@@ -522,9 +520,6 @@ Address Data Next
 开始学习链表知识，[创建链表](https://github.com/yanzhirun/PAT/blob/master/pat/basic/Demo1/errblog/linklist.c)，[逆转链表](https://github.com/yanzhirun/PAT/blob/master/pat/basic/Demo1/errblog/linkrevse.c)  
 
 这道题 提交总是段错误，没有找到解决方案，这几天准备考试，先放一放。
-
-
-
 
 <a href="#catalogue"> back to catalogue </a>  
 
@@ -606,51 +601,51 @@ Address Data Next
 
 问题：第四个超时 3、5 错误，算法比较 先选 min 然后从 max 逐一减小判断是否合适，加一个判断 第i+out这个位置的数字是否满足，如果不满足 continue 下一个循环， 通过。  
 >
-if(p_arr_input[i+out] > p_arr_input[i]*p)
-    continue;  
+    if(p_arr_input[i+out] > p_arr_input[i]*p)
+        continue;  
 
 修改 p_arr_input[i]*p 值的类型为float 第五个测试点通过  
 >
-tmp_min = p_arr_input[i]*p;
+    tmp_min = p_arr_input[i]*p;
 
  第三个测试点始终无法通过，参考网上其他人的程序，改变比较方法，排序之后第一轮循环选最小值，第二轮循环从 第 i+out 的位置开始比较，满足则比较后一位，不满足换另一个最小值。通过。代码如下：  
 >
-for (i = 0; i < N; i++)
-{
-    if (N - i <= out)
-        break;
-    for (j = i + out; j < N; j++)
+    for (i = 0; i < N; i++)
     {
-        if(p_arr_input[j] > p_arr_input[i]*p)
-        {
+        if (N - i <= out)
             break;
+        for (j = i + out; j < N; j++)
+        {
+            if(p_arr_input[j] > p_arr_input[i]*p)
+            {
+                break;
+            }
+            out = out >= j-i+1 ?out:j-i+1;
         }
-        out = out >= j - i+1 ?out:j-i+1;
     }
-}
   
 自己的思路复杂了一点，导致一个点无法通过，但也是可行的，之前的错误在于第二次循环的条件判断有误。经修改如下:  
 >
-for (i = 0; i < N; i++)
-{
-    if (N - i <= out)
-        break;
-    if(p_arr_input[i+out] > p_arr_input[i]*p)
-        continue;
-    tmp_min = p_arr_input[i]*p;
-    for (j = N - 1; j > i + out - 1; j--)
+    for (i = 0; i < N; i++)
     {
-        if (tmp_min< p_arr_input[j])
-        {
-            continue;
-        }
-        else if (tmp_min >= p_arr_input[j])
-        {
-            out = out >= j-i+1 ? out:j-i+1;
+        if (N - i <= out)
             break;
+        if(p_arr_input[i+out] > p_arr_input[i]*p)
+            continue;
+        tmp_min = p_arr_input[i]*p;
+        for (j = N - 1; j > i + out - 1; j--)
+        {
+            if (tmp_min< p_arr_input[j])
+            {
+                continue;
+            }
+            else if (tmp_min >= p_arr_input[j])
+            {
+                out = out >= j-i+1 ? out:j-i+1;
+                break;
+            }
         }
     }
-}
   
    
 <a href="#catalogue"> back to catalogue </a>  
