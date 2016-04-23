@@ -58,10 +58,10 @@ int old_perfect_arr (long int* p_arr_input, int N, double p)
         if(p_arr_input[i+out-1] > p_arr_input[i]*p)
             continue;
         tmp_min = p_arr_input[i]*p;
-        for (j = N - 1; j > i; j--)
+        //for (j = N - 1; j > i; j--)
+        for (j = N - 1; j > i+out-1; j--)
         {
-            if (j-i+1 <= out)
-                break;
+//            if (j-i+1 <= out) break;
             //printf ("i:%d j:%d\n", i, j);
             //printf ("min %d max %d\n", p_arr_input[i], p_arr_input[j]);
             if (tmp_min< p_arr_input[j])

@@ -30,7 +30,7 @@
 -<a href="#1026">1026. 程序运行时间(15)</a>  
 -<a href="#1027">1027. 打印沙漏(20)</a>  
 -<a href="#1028">1028. 人口普查(20)</a>  
--<a href="#1030"></a>  
+-<a href="#1030">1030. 完美数列(25)</a>  
 
 
 
@@ -588,3 +588,68 @@ Address Data Next
 第三个测试用例是 空格 用 "_" 表示。  
 
 <a href="#catalogue"> back to catalogue </a>  
+
+
+##<p id="1030">1030. 完美数列(25)</p>  
+给定一个正整数数列，和正整数p，设这个数列中的最大值是M，最小值是m，如果M <= m * p，则称这个数列是完美数列。  
+现在给定参数p和一些正整数，请你从中选择尽可能多的数构成一个完美数列。  
+输入格式：  
+输入第一行给出两个正整数N和p，其中N（<= 105）是输入的正整数的个数，p（<= 109）是给定的参数。第二行给出N个正整数，每个数不超过109。  
+输出格式：  
+在一行中输出最多可以选择多少个数可以用它们组成一个完美数列。  
+
+思路：升序排列，从第一个 min 值开始比较 max 的值然后比较 max 前一个，然后用第二个 min。  
+
+问题：第四个超时 3、5 错误，算法比较 先选 min 然后从 max 逐一减小判断是否合适，加一个判断 第i+out这个位置的数字是否满足，如果不满足 continue 下一个循环， 通过。  
+>
+        if(p_arr_input[i+out] > p_arr_input[i]*p)
+        continue;  
+
+修改 p_arr_input[i]*p 值的类型为float 第五个测试点通过  
+>
+        tmp_min = p_arr_input[i]*p;
+
+ 第三个测试点始终无法通过，参考网上其他人的程序，改变比较方法，排序之后第一轮循环选最小值，第二轮循环从 第 i+out 的位置开始比较，满足则比较后一位，不满足换另一个最小值。通过。代码如下：  
+ >
+for (i = 0; i < N; i++)
+{
+    if (N - i <= out)
+        break;
+    for (j = i + out; j < N; j++)
+    {
+        if(p_arr_input[j] > p_arr_input[i]*p)
+        {
+            break;
+        }
+        out = out >= j - i+1 ?out:j-i+1;
+    }
+}
+  
+自己的思路复杂了一点，导致一个点无法通过，但也是可行的，之前的错误在于第二次循环的条件判断有误。经修改如下:  
+>
+for (i = 0; i < N; i++)
+{
+    if (N - i <= out)
+        break;
+    if(p_arr_input[i+out] > p_arr_input[i]*p)
+        continue;
+    tmp_min = p_arr_input[i]*p;
+    for (j = N - 1; j > i + out - 1; j--)
+    {
+        if (tmp_min< p_arr_input[j])
+        {
+            continue;
+        }
+        else if (tmp_min >= p_arr_input[j])
+        {
+            out = out >= j-i+1 ? out:j-i+1;
+            break;
+        }
+    }
+}
+  
+   
+<a href="#catalogue"> back to catalogue </a>  
+
+
+
