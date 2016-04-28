@@ -28,7 +28,7 @@ int main()
         {
             if (c_dest[i] == c_wrong_key[j])
                 goto next;
-            else if ((c_dest[i] >= 'a' && c_dest[i] <= 'z' ) || c_dest[i] == c_wrong_key[j] - 'A' +'a')
+            else if ((c_dest[i] >= 'a' && c_dest[i] <= 'z' ) && c_dest[i] == c_wrong_key[j] - 'A' +'a')
             {
                 goto next;
             }
