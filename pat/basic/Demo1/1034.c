@@ -65,7 +65,7 @@ int print_num(Num_special num)
     return 0;
 }
 
-int plus_num(Num_special num1, Num_special num2)
+Num_special calculate (Num_special num1, Num_special num2)
 {
     Num_special result;
     num1 = reduce (num1);
@@ -81,16 +81,45 @@ int plus_num(Num_special num1, Num_special num2)
 
     printf (" = ");
     print_num(result);
-    return 0;
-}
-Num_special calculate (Num_special num1, Num_special num2)
-{
-    Num_special result;
+    printf("\n");
+    //subtraction
+    print_num(num1);
+    printf (" - ");
+    print_num(num2);
+    //printf("====\n num2.k%d  num2.a %d  num2.b%d",num2.k,num2.a,num2.b);
+    result.k = num1.negitive * num1.k - num2.negitive * num2.k;
+    result.b = num1.b * num2.b;
+    result.a = num1.negitive * num1.a * num2.b - num2.negitive * num2.a * num1.b + result.k * result.b;
+    result = reduce (result);
+    printf (" = ");
+    print_num(result);
+    printf("\n");
 
-    plus_num(num1,num2);
+    print_num(num1);
+    printf (" * ");
+    print_num(num2);
+    result.a = (num1.negitive * num2.negitive) * ( num1.k * num1.b + num1.a) * (num2.k * num2.b + num2.a);
+    result.b = num1.b * num2.b;
+    result = reduce (result);
+    printf (" = ");
+    print_num(result);
+    printf("\n");
 
-    return result;
+    print_num(num1);
+    printf (" / ");
+    print_num(num2);
+    printf (" = ");
+    if (num2.k == 0 && num2.a == 0)
+        printf ("Inf");
+    else {
+        result.a = (num1.negitive * num2.negitive) * ( num1.k * num1.b + num1.a) * num2.b;
+        result.b = num1.b * (num2.k * num2.b + num2.a);
+        result = reduce (result);
+        print_num(result);
+    }
+
 }
+
 int main()
 {
     Num_special num1, num2, result;
