@@ -1,5 +1,6 @@
 #include "stdlib.h"
 #include "stdio.h"
+#include "string.h"
 
 int min_num (int x, int y)
 {
@@ -7,15 +8,16 @@ int min_num (int x, int y)
 }
 int merge_sort_test (int* input, int* sort_first, int N)
 {
-    int ret = 0, i, j, k, cmp_same = 0;
-    int* a = input;
-    int* b = (int*)malloc(N * sizeof(int));
+    int ret = 0, i, j, k = 0, cmp_same = 0, flag_malloc = 0;
     int seg, start, low, mid, high, start1, end1, start2, end2;
     if (NULL == input || NULL == sort_first)
     {
         ret = 1;
         return ret;
     }
+    int* a = input;
+    int* b = (int*)malloc(N * sizeof(int));
+    memset (b, '\0', N*sizeof(int));
 
     for (seg = 1; seg < N; seg += seg)
     {
@@ -38,6 +40,7 @@ int merge_sort_test (int* input, int* sort_first, int N)
         }
         int* temp = a;
         a = b;
+        flag_malloc++;
         b = temp;
         if (cmp_same == 1)
         {
@@ -59,9 +62,14 @@ int merge_sort_test (int* input, int* sort_first, int N)
             }
         }
     }
+    if (flag_malloc%2 != 0)
+    {
+        b = a;
+        a = NULL;
+    }
     if (NULL != b)
     {
-        //free(b);
+        free(b);
         b = NULL;
     }
 

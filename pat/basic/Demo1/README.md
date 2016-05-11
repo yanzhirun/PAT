@@ -776,7 +776,29 @@ stdin表示标准输入。
 >
     insert[j+1]= tmp;
 
-归并排序释放有错，不写free() 可以通过运行，不知道原因。  
+维基百科归并排序malloc 句 有错，释放有错，修改如下~~不写free() 可以通过运行，不知道原因。~~ 
+>
+    int* b = (int*)malloc(N * sizeof(int));
+
+b是动态分配，for 循环中 a b 有交换，结束循环之后不知道 a 还是 b 指向动态分配的内存，加一个 flag 标志。解决问题。  
+
+>
+    int* temp = a;
+    a = b;
+    flag_malloc++;
+    b = temp;
+
+>
+    if (flag_malloc%2 != 0)
+    {
+        b = a;
+        a = NULL;
+    }
+    if (NULL != b)
+    {
+        free(b);
+        b = NULL;
+    }
 
 <a href="#catalogue"> back to catalogue </a>  
 
