@@ -2,18 +2,13 @@
 #include "stdio.h"
 #include "string.h"
 
-
 int main ()
 {
     char arr_input[100000];
-    char* p_input_P = NULL;
-    char* p_input_A = NULL;
-    char* p_input_T = NULL;
     int i, num = 0, length = 0;
     int num_T = 0, num_AT = 0;
 
     scanf ("%s", arr_input);
-    p_input_P = arr_input;
     length = strlen (arr_input);
     for (i = length - 1; i >= 0; i--)
     {
@@ -29,23 +24,10 @@ int main ()
         else
         {
             num += num_AT;
+            num = num%1000000007;
         }
     }
-
-//    while ((p_input_P = strchr(p_input_P+1,'P')) != NULL)
-//    {
-//        p_input_A = p_input_P;
-//        while ((p_input_A = strchr(p_input_A+1, 'A')) != NULL)
-//        {
-//            p_input_T = p_input_A;
-//            while ((p_input_T = strchr(p_input_T+1, 'T')) != NULL)
-//            {
-//                num++;
-//            }
-//        }
-//    }
-
-    printf("%d", num%1000000007);
+    printf("%d", num);
 
     return 0;
 }
