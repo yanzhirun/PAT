@@ -1,0 +1,51 @@
+Median of Two Sorted Arrays[!https://leetcode.com/problems/median-of-two-sorted-arrays/]
+
+There are two sorted arrays nums1 and nums2 of size m and n respectively.
+Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
+
+
+
+---
+class Solution {
+    public:
+        double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+            int k = nums1.size() + nums2.size();
+
+            if (k & 0x01)
+            {
+                return find_kth (nums1, nums2, k/2 + 1);
+            }
+            else
+            {
+                return (find_kth (nums1, nums2, k/2) + find_kth (nums1, nums2, k/2 + 1))/2;
+            }
+        }
+    private:
+        double find_kth (vector<int>& nums1, vector<int>& nums2, int k)
+        {
+            int m = nums1.size();
+            int n = nums2.size();
+
+            if (m > n)
+                return find_kth (nums2, nums1, k);
+            if (m == 0)
+                return nums2[k - 1];
+            if (k == 1)
+                return min(nums1[0], nums2[0]);
+
+            int p1 = min(k/2, m);
+            int p2 = k - p1;
+            if (nums1[p1 -1] < nums2[p2 - 1])
+            {
+                vector<int> a(nums1.begin() + p1, nums1.end());
+                return find_kth (a, nums2, k - p1);
+            }
+            else if (nums1[p1 - 1] > nums2[p2 - 1])
+            {
+                vector<int> b(nums2.begin() + p2, nums2.end());
+                return find_kth (nums1, b, k - p2);
+            }
+            else 
+                return nums1[p1 - 1];
+        }
+};
