@@ -1,16 +1,20 @@
-Median of Two Sorted Arrays[!https://leetcode.com/problems/median-of-two-sorted-arrays/]
+#[Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/ "leetcode: median-of-two-sorted-arrays")
 
 There are two sorted arrays nums1 and nums2 of size m and n respectively.
 Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
 
-
-
----
+思路：找第k大的数，从k入手，每次删除一个一定在第k大元素之前的元素。考虑到数组有序，利用二分法，每次删除k/2 个元素。
+考虑元素总个数为奇数偶数。
+假设数组A、 B 元素个数都大于k/2 ，比较A和B的第k/2 个元素,即A[k/2-1] 和B[k/2-1]，分为三种情况。
+A[k/2-1] > B[k/2-1] 意味着B的前k/2个元素可以删除。
+使用递归函数
+终止条件：A或者B为空；k=1；A[k/2-1] ==B[k/2-1]
+```
 class Solution {
     public:
         double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
             int k = nums1.size() + nums2.size();
-
+            //元素总个数为奇数偶数。
             if (k & 0x01)
             {
                 return find_kth (nums1, nums2, k/2 + 1);
@@ -25,14 +29,14 @@ class Solution {
         {
             int m = nums1.size();
             int n = nums2.size();
-
+            //终止条件
             if (m > n)
                 return find_kth (nums2, nums1, k);
             if (m == 0)
                 return nums2[k - 1];
             if (k == 1)
                 return min(nums1[0], nums2[0]);
-
+            //二分
             int p1 = min(k/2, m);
             int p2 = k - p1;
             if (nums1[p1 -1] < nums2[p2 - 1])
@@ -49,3 +53,4 @@ class Solution {
                 return nums1[p1 - 1];
         }
 };
+```
