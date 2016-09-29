@@ -1,0 +1,41 @@
+#[Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/)
+
+Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
+
+思路：在一个无序的整数数组中，找到最长连续序列的长度，要求复杂度为 O(n)。
+关键字 无序 复杂度。考虑使用哈希表。
+记录元素是否使用，然后以每个元素为中心，向左右扩张。
+
+class Solution
+{
+public:
+    int longestConsecutive(vector<int> const& num)
+    {
+        unordered_map<int, bool> used;
+        for (auto i: num)
+        {
+            used[i] = false;//创建哈希表，num的为键，值为false
+        }
+        int longest = 0;
+        for (auto i: num)
+        {
+            //找过的值都为true 不需再查找
+            if (used[i])
+                continue;
+            int length = 1;
+            //向两边扩张，找连续数。
+            for (int j = i + 1; used.find(j) != used.end(); ++j)
+            {
+                used[j] = true;
+                ++length;
+            }
+            for (int j = i - 1; used.find(j)!= used.end(); --j)
+            {
+                used[j] = true;
+                ++length;
+            }
+            longest = max (longest, length);
+        }
+        return longest
+    }
+};
