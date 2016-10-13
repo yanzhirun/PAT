@@ -1,0 +1,23 @@
+#include<map>
+#include<vector>
+#include<algorithm>
+#include<list>
+#include<iterator>
+#include<string>
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    list<int> v(10);
+    for (size_t i = 0; i != 10; ++i)
+    {
+        v.push_back(i);
+    }
+    for (auto output = v.begin(); output != v.end(); ++output)
+    {
+        cout<<*output<<endl;
+    }
+//    vector<int> ::iterator first = v.begin(), last = v.end();
+    return 0;
+}
